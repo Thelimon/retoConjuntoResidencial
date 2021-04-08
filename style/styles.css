@@ -25,7 +25,3 @@ main{
 .smallContainer{
     display: grid;  
 }
-
-.rightSide small:nth-child(){
-    background-color: red;
-}

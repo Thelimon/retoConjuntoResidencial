@@ -9,6 +9,9 @@ const familyMembersGenre = document.querySelector('.familyMemberGenre');
 const familyMembersAge = document.getElementById('familyMemberAge').value;
 const totalPrice = document.querySelector('.rightSide');
 
+//Create another bill
+const mainBillsContainer = document.querySelector('.amountContainer');
+
 //Family members button
 familyMembersButton.addEventListener('click', addFamilyMembers);
 
@@ -17,6 +20,7 @@ button.addEventListener('click', ()=>{
     let squareMeters = document.getElementById('squareMetersInput').value;
     calculateAdminAmount(squareMeters);
     calculateCleaningAmout(squareMeters);
+    addMoreBills();
 });
 
 function addFamilyMembers(){
@@ -64,5 +68,36 @@ function familyGenre (){
     }
 }
 
+function priceToPay(){
+    const totalBuildingObligationPrice = document.getElementById('totalBuildingObligations');
+    `${totalBuildingObligationPrice.innerHTML = ``}`    
+}
+
+function addMoreBills() {
+    const amountCointainerLeftSide = document.createElement("section");
+    const amountCointainerRightSide = document.createElement("section");
+    amountCointainerLeftSide.innerHTML = `
+        <article class="leftSide">
+            <h5>Señores apartamento #</h5>
+            <small>Valor administración</small>
+            <small>Valor cuota de aseo</small>
+            <small>Derechos de gimnasio</small>
+            <h5>Total a pagar</h5>
+        </article>
+    `
+    amountCointainerRightSide.innerHTML = `
+            <article class="rightSide">
+                <h5>Cuota mes de</h5>
+                <class class="smallContainer">
+                    <small id="administrationValueAmountParaph">$ XXXXX</small>
+                    <small id="cleaningValueParaph">$ XXXXX</small>
+                    <small>$ XXXXX</small>
+                </class>
+                <h5 id="totalBuildingObligations">$ XXXXX</h5>
+            </article>
+    `
+    mainBillsContainer.appendChild(amountCointainerLeftSide);
+    mainBillsContainer.appendChild(amountCointainerRightSide);
+}
 
 
