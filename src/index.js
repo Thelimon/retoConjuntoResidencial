@@ -44,16 +44,14 @@ function familyGenre (){
     }
 }
 
-function priceToPay(){
-    const totalBuildingObligationPrice = document.getElementById('totalBuildingObligations');
-    `${totalBuildingObligationPrice.innerHTML = ``}`    
-}
-
 function addMoreBills(squareMetersParams) {
     const amountCointainerLeftSide = document.createElement("section");
     const amountCointainerRightSide = document.createElement("section");
 
     if (land.options[land.selectedIndex].textContent === "Apartamento") {
+        let totalAdminApartmentPrice = (squareMetersParams*1500) + 50000;
+        let totalCleaningApartmentPrice = (((squareMetersParams*1500) + 50000)*0.10) + 
+            (squareMetersParams*1000)
         amountCointainerLeftSide.innerHTML += `
         <article class="leftSide">
             <h5>Señores apartamento #</h5>
@@ -67,15 +65,17 @@ function addMoreBills(squareMetersParams) {
             <article class="rightSide">
                 <h5>Cuota mes de</h5>
                 <class class="smallContainer">
-                    <small id="administrationValueAmountParaph">${(squareMetersParams*1500) + 50000}</small>
-                    <small id="cleaningValueParaph">${(((squareMetersParams*1500) + 100000)*0.10) + 
-                        (squareMetersParams*1000)}</small>
+                    <small id="administrationValueAmountParaph">${totalAdminApartmentPrice}</small>
+                    <small id="cleaningValueParaph">${totalCleaningApartmentPrice}</small>
                     <small>$ XXXXX</small>
                 </class>
-                <h5 id="totalBuildingObligations">$ XXXXX</h5>
+                <h5 id="totalBuildingObligations">${totalAdminApartmentPrice+totalCleaningApartmentPrice}</h5>
             </article>
         `
     }else{
+        let totalAdminHousePrice = (squareMetersParams*1500) + 100000;
+        let totalCleaningHousePrice = (((squareMetersParams*1500) + 100000)*0.10) + 
+            (squareMetersParams*1000)
         amountCointainerLeftSide.innerHTML += `
         <article class="leftSide">
             <h5>Señores apartamento #</h5>
@@ -89,12 +89,11 @@ function addMoreBills(squareMetersParams) {
             <article class="rightSide">
                 <h5>Cuota mes de</h5>
                 <class class="smallContainer">
-                    <small id="administrationValueAmountParaph">${(squareMetersParams*1500) + 100000}</small>
-                    <small id="cleaningValueParaph">${(((squareMetersParams*1500) + 100000)*0.10) + 
-                        (squareMetersParams*1000)}</small>
+                    <small id="administrationValueAmountParaph">${totalAdminHousePrice}</small>
+                    <small id="cleaningValueParaph">${totalCleaningHousePrice}</small>
                     <small>$ XXXXX</small>
                 </class>
-                <h5 id="totalBuildingObligations">$ XXXXX</h5>
+                <h5 id="totalBuildingObligations">${totalAdminHousePrice+totalCleaningHousePrice}</h5>
             </article>
         `
     }
