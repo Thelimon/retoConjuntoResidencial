@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/styles.css" type="text/css">
+    <title>Document</title>
+</head>
+<body>
+
+    <main>
+        <div class="mainTypeContainer">
+            <select class="landTypeContainer" name="typeSelect">
+                <option value="valor1" selected>Apartamento</option>
+                <option value="valor2">Casa</option>
+            </select>
+            <input type="number" id="squareMetersInput"name="Meters" placeholder="Ingrese los metros cuadrados">
+        </div>
+
+        <div class="mainFamilyContainer">
+            <article>
+                <select class="familyMemberGenre" name="FamilySelect">
+                    <option value="Masculino" selected>Masculino</option>
+                    <option value="Femenino">Femenino</option>
+                </select>
+                <input type="number" id="familyMemberAge"placeholder="Ingrese la edad del miembro">
+                <button type="submit" id="familyMembersButton">+</button>
+            </article>
+        </div>
+
+        <button type="submit" id="mainButton">Enviar</button>
+    </main>
+
+    <div class="amountContainer">
+        <article class="leftSide">
+            <h5>Señores apartamento #</h5>
+            <small>Valor administración</small>
+            <small>Valor cuota de aseo</small>
+            <small>Derechos de gimnasio</small>
+        </article>
+
+        <article class="rightSide">
+            <h5>Cuota mes de</h5>
+            <div class="smallContainer">
+                <small id="administrationValueAmountParaph">$ XXXXX</small>
+                <small id="cleaningValueParaph">$ XXXXX</small>
+                <small>$ XXXXX</small>
+            </div>
+        </article>
+    </div>
+<script src="src/index.js"></script>
+</body>
+</html>
