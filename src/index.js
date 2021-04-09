@@ -19,7 +19,7 @@ button.addEventListener('click', () =>{
     const squareMeters = document.getElementById('squareMetersInput').value;
     const familyMembersAge = document.getElementById('familyMemberAge');
     const gymCount = familyGenre(familyMembersAge);
-    const gettingFamilyMembers = document.querySelectorAll('.gettingArticleFamily').length;
+    const gettingFamilyMembers = document.querySelectorAll('.gettingArticleFamilyAux').length;
     addMoreBills(squareMeters, gymCount, gettingFamilyMembers);
 });
 
@@ -38,7 +38,6 @@ function addFamilyMembers(){
 }
 
 function removeFamilyMember(event) {
-    console.log(event)
     return event.target.parentElement.remove();
 }
 
@@ -60,11 +59,11 @@ function familyGenre (familyMembersAgeParam){
     }else{
         if(familyMembersAgeParam.value < 10){
             familyGymFinalPrice = 0;
-        }else if(familyMembersAgeParam.value >= 10 && familyMembersAgeParam.value < 20){
+        }else if(familyMembersAgeParam.value >= 10 && familyMembersAgeParam.value < 18){
             familyGymFinalPrice = 15000;
-        }else if(familyMembersAgeParam.value >= 20 && familyMembersAgeParam.value < 40){
+        }else if(familyMembersAgeParam.value >= 18 && familyMembersAgeParam.value < 35){
             familyGymFinalPrice = 12000;
-        }else if(familyMembersAgeParam.value >= 40 && familyMembersAgeParam.value < 60){
+        }else if(familyMembersAgeParam.value >= 35 && familyMembersAgeParam.value < 55){
             familyGymFinalPrice = 8000;
        }else{
             familyGymFinalPrice = 0;
@@ -75,35 +74,37 @@ function familyGenre (familyMembersAgeParam){
 
 function addMoreBills(squareMetersParams, gymCount, gettingFamilyMembers) {
 
-    //Grid bill section
-    const amountCointainerLeftSide = document.createElement("section");
-    const amountCointainerRightSide = document.createElement("section");
+    if (land.options[land.selectedIndex].textContent === "Apartamento") {
+        billApartmentLeftSide();
+        billApartmentRightSide(squareMetersParams, gymCount, gettingFamilyMembers);
+    }else{
+        billHouseLeftSide();
+        billHouseRightSide(squareMetersParams, gymCount, gettingFamilyMembers);
+    }
+}
 
-    //Apartments && houses variables
+function billApartmentLeftSide() {
+    const amountCointainerLeftSide = document.createElement("section");
+    amountCointainerLeftSide.innerHTML += `
+    <article class="leftSide">
+        <h5>Señores apartamento #${parseInt(Math.random()*100)}</h5>
+        <small>Valor administración</small>
+        <small>Valor cuota de aseo</small>
+        <small>Derechos de gimnasio</small>
+        <h5>Total a pagar</h5>
+     </article>
+    `    
+    mainBillsContainer.appendChild(amountCointainerLeftSide);
+}
+
+function billApartmentRightSide(squareMetersParams, gymCount, gettingFamilyMembers) {
+    let actualDay = new Date ();
+    const amountCointainerRightSide = document.createElement("section");
     let totalAdminApartmentPrice = (squareMetersParams*1500) + 50000;
     let totalCleaningApartmentPrice = (((squareMetersParams*1500) + 50000)*0.10) + (squareMetersParams*1000);
-    let totalGymMembers = gymCount * gettingFamilyMembers;
-    let totalAdminHousePrice = (squareMetersParams*1500) + 100000;
-    let totalCleaningHousePrice = (((squareMetersParams*1500) + 100000)*0.10) + (squareMetersParams*1000);
-    let actualDay = new Date ();
-
-    //Price to pay
+    let totalGymMembers = gymCount * (gettingFamilyMembers+1);
     let apartmentPriceToPay = totalAdminApartmentPrice + totalCleaningApartmentPrice + totalGymMembers;
-    let housePriceToPay = totalAdminHousePrice + totalCleaningHousePrice + totalGymMembers;
-    console.log(apartmentPriceToPay);
-
-    if (land.options[land.selectedIndex].textContent === "Apartamento") {
-
-        amountCointainerLeftSide.innerHTML += `
-        <article class="leftSide">
-            <h5>Señores apartamento #${parseInt(Math.random()*100)}</h5>
-            <small>Valor administración</small>
-            <small>Valor cuota de aseo</small>
-            <small>Derechos de gimnasio</small>
-            <h5>Total a pagar</h5>
-         </article>
-        `    
-        amountCointainerRightSide.innerHTML += `
+    amountCointainerRightSide.innerHTML += `
             <article class="rightSide">
                 <h5>Cuota del ${actualDay.toLocaleDateString()}</h5>
                 <class class="smallContainer">
@@ -114,32 +115,40 @@ function addMoreBills(squareMetersParams, gymCount, gettingFamilyMembers) {
                 <h5 id="totalBuildingObligations">$ ${apartmentPriceToPay}</h5>
             </article>
         `
-    }else{
-        amountCointainerLeftSide.innerHTML += `
-            <article class="leftSide">
-                <h5>Señores casa #${parseInt(Math.random()*(2000 - 1000))}</h5>
-                <small>Valor administración</small>
-                <small>Valor cuota de aseo</small>
-                <small>Derechos de gimnasio</small>
-                <h5>Total a pagar</h5>
-            </article>
-        `    
-        amountCointainerRightSide.innerHTML += `
-            <article class="rightSide">
-                <h5>Cuota del ${actualDay.toLocaleDateString()}</h5>
-                <class class="smallContainer">
-                    <small id="administrationValueAmountParaph">$ ${totalAdminHousePrice}</small>
-                    <small id="cleaningValueParaph">$ ${totalCleaningHousePrice}</small>
-                    <small>$ ${totalGymMembers} </small>
-                </class>
-                <h5 id="totalBuildingObligations">$ ${housePriceToPay}</h5>
-            </article>
-        `
-    }
-    mainBillsContainer.appendChild(amountCointainerLeftSide);
     mainBillsContainer.appendChild(amountCointainerRightSide);
 }
 
-function companyPriceToPay() {
-    
+function billHouseLeftSide() {
+    const amountCointainerLeftSide = document.createElement("section");
+    amountCointainerLeftSide.innerHTML += `
+        <article class="leftSide">
+            <h5>Señores casa #${parseInt(Math.random()*(2000 - 1000))}</h5>
+            <small>Valor administración</small>
+            <small>Valor cuota de aseo</small>
+            <small>Derechos de gimnasio</small>
+            <h5>Total a pagar</h5>
+        </article>
+    `   
+    mainBillsContainer.appendChild(amountCointainerLeftSide);
+}
+
+function billHouseRightSide(squareMetersParams, gymCount, gettingFamilyMembers) {
+    let actualDay = new Date ();    
+    const amountCointainerRightSide = document.createElement("section");
+    let totalAdminHousePrice = (squareMetersParams*1500) + 100000;
+    let totalCleaningHousePrice = (((squareMetersParams*1500) + 100000)*0.10) + (squareMetersParams*1000);
+    let totalGymMembers = gymCount * (gettingFamilyMembers+1);
+    let housePriceToPay = totalAdminHousePrice + totalCleaningHousePrice + totalGymMembers;
+    amountCointainerRightSide.innerHTML += `
+        <article class="rightSide">
+             <h5>Cuota del ${actualDay.toLocaleDateString()}</h5>
+            <class class="smallContainer">
+                <small id="administrationValueAmountParaph">$ ${totalAdminHousePrice}</small>
+                <small id="cleaningValueParaph">$ ${totalCleaningHousePrice}</small>                    
+                <small>$ ${totalGymMembers} </small>
+            </class>
+            <h5 id="totalBuildingObligations">$ ${housePriceToPay}</h5>
+        </article>
+    `    
+    mainBillsContainer.appendChild(amountCointainerRightSide);
 }
